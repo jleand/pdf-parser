@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  IMAGE_NAME: leandjoao/pdf-parser
+  IMAGE_NAME: ${{ secrets.DOCKER_HUB_USER }}/pdf-parser
 
 jobs:
   build-and-push:
@@ -21,7 +21,7 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: leandjoao
+          username: ${{ secrets.DOCKER_HUB_USER }}
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
       - name: Set up Docker Buildx
