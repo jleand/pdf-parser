@@ -1,5 +1,10 @@
 FROM python:3.11-slim
 
+LABEL org.opencontainers.image.title="PDF Parser"
+LABEL org.opencontainers.image.description="FastAPI service that extracts text from PDF files using pypdf for text-based PDFs and Tesseract OCR for scanned documents"
+LABEL org.opencontainers.image.source="https://github.com/jleand/pdf-parser"
+LABEL org.opencontainers.image.licenses="MIT"
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
     tesseract-ocr \
     tesseract-ocr-eng \
