@@ -63,7 +63,7 @@ async def health():
 
 
 @app.post("/parse", response_model=ParseResponse)
-async def parse(file: UploadFile = File(...)):
+async def parse(file: UploadFile = File(...), lang: str = "eng"):
     if not file.filename or not file.filename.lower().endswith(".pdf"):
         raise HTTPException(status_code=400, detail="Only PDF files are accepted")
 
@@ -83,7 +83,7 @@ async def parse(file: UploadFile = File(...)):
 
     try:
         async with _semaphore:
-            text = await asyncio.to_thread(parse_pdf, content)
+            text = await asyncio.to_thread(parse_pdf, content, lang)
         logger.info("Parsed %s (%d bytes, %d chars extracted)", file.filename, len(content), len(text))
         return ParseResponse(status="ok", data=text)
     except Exception as e:
