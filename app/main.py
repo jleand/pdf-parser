@@ -8,7 +8,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
-from pdf_parser import parse_pdf
+try:
+    from pdf_parser import parse_pdf
+except ModuleNotFoundError:
+    from app.pdf_parser import parse_pdf
 
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO").upper()
 logging.basicConfig(
